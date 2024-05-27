@@ -17,7 +17,5 @@ r <- try(terra::rast(ndvi.array, ))
 r <- flip(r, direction="horizontal")
 
 if(!inherits(r, "try-error")) {
-  terra::plot(rev(r)[[1:6]], main = nc_attributes$species) +
-    coord_quickmap(xlim=c(latlon[3], latlon[4]), ylim=c(latlon[1], latlon[2]))
-
+  terra::plot(rev(r)[[1:6]], main = nc_attributes$species)
 }
