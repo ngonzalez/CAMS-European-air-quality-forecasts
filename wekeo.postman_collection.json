@@ -20,7 +20,7 @@
 					},
 					{
 						"key": "Authorization",
-						"value": "Bearer e6085ee9-a349-3e02-b108-3d8e0e831133"
+						"value": "Bearer _TOKEN_"
 					},
 					{
 						"key": "Content-Type",
@@ -69,7 +69,7 @@
 					},
 					{
 						"key": "Authorization",
-						"value": "Bearer e6085ee9-a349-3e02-b108-3d8e0e831133"
+						"value": "Bearer _TOKEN_"
 					}
 				],
 				"body": {
@@ -125,7 +125,7 @@
 					},
 					{
 						"key": "Authorization",
-						"value": "Bearer e6085ee9-a349-3e02-b108-3d8e0e831133"
+						"value": "Bearer _TOKEN_"
 					}
 				],
 				"url": {
@@ -163,7 +163,7 @@
 					},
 					{
 						"key": "Authorization",
-						"value": "Bearer e6085ee9-a349-3e02-b108-3d8e0e831133"
+						"value": "Bearer _TOKEN_"
 					}
 				],
 				"url": {
@@ -192,7 +192,7 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Basic 1212121212"
+						"value": "Basic _TOKEN_"
 					}
 				],
 				"url": {
