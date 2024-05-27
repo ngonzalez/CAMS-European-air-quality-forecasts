@@ -1,8 +1,6 @@
 packages <- c('ncdf4', 'terra')
 install.packages(setdiff(packages, rownames(installed.packages())))
 
-t1 <- Sys.time()
-
 if (length(commandArgs(trailingOnly=TRUE))>0) {
   args <- commandArgs(trailingOnly=TRUE)
 }
@@ -29,12 +27,13 @@ nc_attributes <- ncatt_get(nc, variable)
 r <- try(terra::rast(ndvi.array, ))
 r <- flip(r, direction="horizontal")
 
-for (i in 1:length(time)) {
-    terra::plot(rev(r)[[i:i]],
-      col=grey(0:100/100, alpha=0.9),
-      main=nc_attributes$species,
-      maxcell=1000000
-    )
-}
+filename <- paste(variable, ".pdf")
+pdf(file=filename)
 
-print(difftime(Sys.time(), t1, units = "seconds"))
+for (i in 1:length(time)) {
+  terra::plot(rev(r)[[i:i]],
+    col=grey(0:100/100, alpha=0.9),
+    main=nc_attributes$species,
+    maxcell=1000000,
+  )
+}
