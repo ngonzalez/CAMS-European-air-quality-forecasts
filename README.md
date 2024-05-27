@@ -14,3 +14,7 @@ docker run --rm -ti \
 ```shell
 sudo apt-get install gdal-bin libgdal-dev proj-bin
 ```
+
+```r
+Rscript displayData.R <variable>
+```
