@@ -1,6 +1,9 @@
 packages <- c('ncdf4', 'terra')
 install.packages(setdiff(packages, rownames(installed.packages())))
 
+library(ncdf4)
+library(terra)
+
 if (length(commandArgs(trailingOnly=TRUE))>0) {
   args <- commandArgs(trailingOnly=TRUE)
   selected <- args[1]
@@ -8,16 +11,13 @@ if (length(commandArgs(trailingOnly=TRUE))>0) {
   stop("NETCDF_PATH is missing", call.=FALSE)
 }
 
-library(ncdf4)
-library(terra)
-
 setwd(Sys.getenv('NETCDF_PATH'))
 
-filenames <- list.files(path=".", pattern="\\.nc$", full.names=TRUE)
+fnames <- list.files(pattern = "*.nc$") 
 
-for (index in 1:length(filenames))
+for (index in 1:length(fnames))
 
-  nc <- nc_open(filenames[index])
+  nc <- nc_open(fnames[index])
 
   nc_vars <- names(nc$var)
 
@@ -32,7 +32,7 @@ for (index in 1:length(filenames))
   r <- try(terra::rast(ndvi.array, ))
   r <- flip(r, direction="horizontal")
 
-  filename <- paste(filenames[index], variable, ".pdf")
+  filename <- paste(fnames[index], variable, ".pdf")
   pdf(file=filename)
 
   for (i in 1:length(time)) {
@@ -40,5 +40,4 @@ for (index in 1:length(filenames))
       main=nc_attributes$species,
       maxcell=1000000,
     )
-    dev.off()
   }
