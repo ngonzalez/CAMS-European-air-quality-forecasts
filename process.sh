@@ -6,7 +6,7 @@ declare -a StringArray=(
 )
 
 for val in ${StringArray[@]}; do
-  `Rscript displayData.R $val`
+  su -c "Rscript /home/rstudio/displayData.R $val" $USER
 done
 
 exit 0

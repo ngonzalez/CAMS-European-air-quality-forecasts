@@ -32,7 +32,6 @@ pdf(file=filename)
 
 for (i in 1:length(time)) {
   terra::plot(rev(r)[[i:i]],
-    col=grey(0:100/100, alpha=0.9),
     main=nc_attributes$species,
     maxcell=1000000,
   )

@@ -12,9 +12,9 @@ docker run --rm -ti \
 ```
 
 ```shell
-sudo apt-get install gdal-bin libgdal-dev proj-bin libnetcdf-dev
+docker exec -it <CONTAINER_ID> apt-get install gdal-bin libgdal-dev proj-bin libnetcdf-dev
 ```
 
-```r
-Rscript displayData.R <variable>
+```shell
+docker exec -it <CONTAINER_ID> /home/rstudio/process.sh
 ```
