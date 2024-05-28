@@ -13,11 +13,11 @@ if (length(commandArgs(trailingOnly=TRUE))>0) {
 
 setwd(Sys.getenv('NETCDF_PATH'))
 
-fnames <- list.files(pattern = "*.nc$") 
+fnames <- list.files(pattern = "*.nc$", all.files = FALSE)
 
-for (index in 1:length(fnames))
+for (file in fnames) {
 
-  nc <- nc_open(fnames[index])
+  nc <- nc_open(file)
 
   nc_vars <- names(nc$var)
 
@@ -32,7 +32,7 @@ for (index in 1:length(fnames))
   r <- try(terra::rast(ndvi.array, ))
   r <- flip(r, direction="horizontal")
 
-  filename <- paste(fnames[index], variable, ".pdf")
+  filename <- paste(file, variable, ".pdf")
   pdf(file=filename)
 
   for (i in 1:length(time)) {
@@ -41,3 +41,6 @@ for (index in 1:length(fnames))
       maxcell=1000000,
     )
   }
+
+  dev.off()
+}
