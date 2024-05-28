@@ -11,5 +11,5 @@ docker build . -t cams-european-forecasts \
 ```
 
 ```shell
-docker run --rm -it -v /data:/mnt/data -d cams-european-forecasts
+docker run --rm -it -v /data:/mnt/data cams-european-forecasts
 ```
