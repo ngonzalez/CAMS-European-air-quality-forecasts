@@ -3,37 +3,42 @@ install.packages(setdiff(packages, rownames(installed.packages())))
 
 if (length(commandArgs(trailingOnly=TRUE))>0) {
   args <- commandArgs(trailingOnly=TRUE)
+  selected <- args[1]
+} else {
+  stop("NETCDF_PATH is missing", call.=FALSE)
 }
 
 library(ncdf4)
 library(terra)
 
-setwd("/mnt/data/netcdf")
+setwd(Sys.getenv('NETCDF_PATH'))
 
-nc <- nc_open("ENS_ANALYSIS.nc")
+filenames <- list.files(path=".", pattern="\\.nc$", full.names=TRUE)
 
-selected <- args[1]
+for (index in 1:length(filenames))
 
-nc_vars <- names(nc$var)
+  nc <- nc_open(filenames[index])
 
-variable <- grep(selected, nc_vars, value=TRUE)
+  nc_vars <- names(nc$var)
 
-ndvi.array <- ncvar_get(nc, variable)
+  variable <- grep(selected, nc_vars, value=TRUE)
 
-time <- ncvar_get(nc, "time")
+  ndvi.array <- ncvar_get(nc, variable)
 
-nc_attributes <- ncatt_get(nc, variable)
+  time <- ncvar_get(nc, "time")
 
-r <- try(terra::rast(ndvi.array, ))
-r <- flip(r, direction="horizontal")
+  nc_attributes <- ncatt_get(nc, variable)
 
-filename <- paste(variable, ".pdf")
-pdf(file=filename)
+  r <- try(terra::rast(ndvi.array, ))
+  r <- flip(r, direction="horizontal")
 
-for (i in 1:length(time)) {
-  terra::plot(rev(r)[[i:i]],
-    main=nc_attributes$species,
-    maxcell=1000000,
-  )
-  dev.off()
-}
+  filename <- paste(filenames[index], variable, ".pdf")
+  pdf(file=filename)
+
+  for (i in 1:length(time)) {
+    terra::plot(rev(r)[[i:i]],
+      main=nc_attributes$species,
+      maxcell=1000000,
+    )
+    dev.off()
+  }

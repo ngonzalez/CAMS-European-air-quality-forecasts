@@ -12,9 +12,16 @@ docker run --rm -ti \
 ```
 
 ```shell
-docker exec -it <CONTAINER_ID> apt-get install gdal-bin libgdal-dev proj-bin libnetcdf-dev
+export NETCDF_PATH=/mnt/data/netcdf
 ```
 
 ```shell
-docker exec -it <CONTAINER_ID> /home/rstudio/process.sh
+docker build . -t cams-european-forecasts \
+  --build-arg netcdf_path=$NETCDF_PATH \
+  -f .docker/Dockerfile
 ```
+
+```shell
+docker run --rm -it -v /data:/mnt/data -d cams-european-forecasts
+```
+
