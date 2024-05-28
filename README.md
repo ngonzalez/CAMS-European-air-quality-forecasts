@@ -12,7 +12,7 @@ docker run --rm -ti \
 ```
 
 ```shell
-sudo apt-get install gdal-bin libgdal-dev proj-bin
+sudo apt-get install gdal-bin libgdal-dev proj-bin libnetcdf-dev
 ```
 
 ```r

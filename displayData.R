@@ -37,3 +37,5 @@ for (i in 1:length(time)) {
     maxcell=1000000,
   )
 }
+
+dev.off()
