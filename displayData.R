@@ -35,6 +35,5 @@ for (i in 1:length(time)) {
     main=nc_attributes$species,
     maxcell=1000000,
   )
+  dev.off()
 }
-
-dev.off()
