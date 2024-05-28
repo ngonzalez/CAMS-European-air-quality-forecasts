@@ -24,17 +24,21 @@ class RotatePDF
   private
   def rotate_pages(file)
     pdf = PDF.read file, lazy: true
-    pdf.pages.each do |page|
-      page.setRotate 90
-    end
-    pdf.save "/#{DATA_PATH}/pdf/%s" %
-      file.split('/').last
+    pdf.pages.each { |page| page.setRotate 90 }
+    pdf.save "/#{DATA_PATH}/pdf/%s" % file.split('/').last
   end
 end
 
-RotatePDF.new(
+@rotate_pdf = RotatePDF.new(
   export_path: "#{DATA_PATH}/pdf",
   import_files: "#{DATA_PATH}/*.pdf"
 )
+
+begin
+  @rotate_pdf.create_folder
+  @rotate_pdf.process_files
+rescue => _exception
+  puts "An error happened when rotating PDF files"
+end
 
 exit 0
