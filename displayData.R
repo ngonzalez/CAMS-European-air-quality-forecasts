@@ -19,15 +19,18 @@ for (file in fnames) {
 
   nc <- nc_open(file)
 
+  # selected
   nc_vars <- names(nc$var)
-
   variable <- grep(selected, nc_vars, value=TRUE)
 
-  ndvi.array <- ncvar_get(nc, variable)
+  # variables
+  ndvi.array    <- ncvar_get(nc, variable)
+  time          <- ncvar_get(nc, "time")
 
-  time <- ncvar_get(nc, "time")
-
+  # attributes
   nc_attributes <- ncatt_get(nc, variable)
+  analysis      <- ncatt_get(nc, 0, "ANALYSIS")
+  history       <- ncatt_get(nc, 0, "history")
 
   r <- try(terra::rast(ndvi.array, ))
   r <- flip(r, direction="horizontal")
@@ -40,6 +43,9 @@ for (file in fnames) {
       main=nc_attributes$species,
       maxcell=1000000,
     )
+
+    mtext(analysis$value, side = 4)
+    mtext(paste(history$value, nc_attributes$units), side = 2)
   }
 
   dev.off()
