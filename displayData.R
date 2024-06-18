@@ -4,6 +4,13 @@ install.packages(setdiff(packages, rownames(installed.packages())))
 library(ncdf4)
 library(terra)
 
+if (length(commandArgs(trailingOnly=TRUE))>0) {
+  args <- commandArgs(trailingOnly=TRUE)
+  selected <- args[1]
+} else {
+  stop("Missing selected variable argument", call.=FALSE)
+}
+
 setwd(Sys.getenv('NETCDF_PATH'))
 
 fnames <- list.files(pattern = "*.nc$", all.files = FALSE)
