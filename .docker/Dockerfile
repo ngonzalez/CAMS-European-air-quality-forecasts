@@ -11,8 +11,8 @@ RUN chmod +x /usr/bin/entrypoint.sh
 WORKDIR /r
 
 # NETCDF_PATH
-ARG netcdf_path="/mnt/data/netcdf"
-ENV NETCDF_PATH $netcdf_path
+ARG netcdf_path="/tmp/data/netcdf"
+ENV NETCDF_PATH=$netcdf_path
 
 COPY ../displayData.R .
 

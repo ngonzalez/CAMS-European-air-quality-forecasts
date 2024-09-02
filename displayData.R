@@ -29,7 +29,7 @@ for (file in fnames) {
 
   # attributes
   nc_attributes <- ncatt_get(nc, variable)
-  analysis      <- ncatt_get(nc, 0, "ANALYSIS")
+  analysis      <- ncatt_get(nc, 0, "FORECAST")
   history       <- ncatt_get(nc, 0, "history")
 
   r <- try(terra::rast(ndvi.array, ))
@@ -39,11 +39,10 @@ for (file in fnames) {
   pdf(file=filename)
 
   for (i in 1:length(time)) {
-    terra::plot(rev(r)[[i:i]],
+    terra::plot(r[[i:i]],
       main=nc_attributes$species,
       maxcell=1000000,
     )
-
     mtext(analysis$value, side = 4)
     mtext(paste(history$value, nc_attributes$units), side = 2)
   }

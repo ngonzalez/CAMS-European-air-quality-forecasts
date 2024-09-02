@@ -1,7 +1,7 @@
 ##### Process NetCDF Data
 
 ```shell
-export NETCDF_PATH=/mnt/data/netcdf
+export NETCDF_PATH=/tmp/data/netcdf-cams
 ```
 
 ```shell
@@ -11,5 +11,5 @@ docker build . -t cams-european-forecasts \
 ```
 
 ```shell
-docker run --rm -it -v /data:/mnt/data cams-european-forecasts
+docker run --rm -it -v /tmp/data:/tmp/data cams-european-forecasts
 ```
