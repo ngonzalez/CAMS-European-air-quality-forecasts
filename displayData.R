@@ -43,8 +43,6 @@ for (file in fnames) {
       main=nc_attributes$species,
       maxcell=1000000,
     )
-    mtext(analysis$value, side = 4)
-    mtext(paste(history$value, nc_attributes$units), side = 2)
   }
 
   dev.off()
